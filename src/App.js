@@ -2,6 +2,7 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from "react-bootstrap";
 import { FaReact, FaBootstrap, FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaSquareJs } from "react-icons/fa6";
 
 export default function Portfolio() {
   return (
@@ -24,6 +25,9 @@ export default function Portfolio() {
             </Col>
             <Col xs="auto">
               <FaBootstrap size={50} title="Bootstrap" className="text-primary" />
+            </Col>
+            <Col xs="auto">
+              <FaSquareJs size={50} title="JS" className="text-primary" />
             </Col>
           </Row>
         </Container>
