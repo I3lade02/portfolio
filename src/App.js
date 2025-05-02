@@ -23,7 +23,7 @@ export default function Portfolio() {
           <Navbar.Collapse id="respnsive-navbar-nav" className="justify-content-center gap-4">
             <Nav className="ms-auto me-3">
               <Nav.Link href="#home">Domů</Nav.Link>
-              <Nav.Link href="#skills">Skills</Nav.Link>
+              <Nav.Link href="#skills">Dovednosti</Nav.Link>
               <Nav.Link href="#projects">Projekty</Nav.Link>
               <Nav.Link href="#contact">Kontakty</Nav.Link>
             </Nav>
@@ -68,7 +68,7 @@ export default function Portfolio() {
               <FaCss3 size={50} title="CSS" className="text-primary" />
             </Col>
           </Row>
-          <h3 className="mb-4">Technologies I'm Learning</h3>
+          <h3 className="mb-4">Technologie, které se učím</h3>
           <Row className="justify-content-center">
             <Col xs="auto">
               <FaNodeJs size={45} title="Node.js" className="text-success" />
