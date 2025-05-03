@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { TypeAnimation } from "react-type-animation";
 import { Container, Row, Col, Navbar, Nav, Button, Card, Badge, Form } from "react-bootstrap";
 import { FaReact, FaBootstrap, FaGithub, FaLinkedin, FaGitAlt, FaNodeJs, FaHtml5, FaCss3 } from "react-icons/fa";
 import { FaSquareJs } from "react-icons/fa6";
@@ -12,6 +15,10 @@ export default function Portfolio() {
   const toggleTheme = () => setDarkMode(!darkMode);
   const themeClass = darkMode ? "bg-dark text-light" : "bg-light text-dark";
   const textMuted = darkMode ? "text-secondary" : "text-muted";
+
+  useEffect(() => {
+    AOS.init({ duration: 800, once: true });
+  })
 
   return (
     <div className={themeClass}>
@@ -37,22 +44,27 @@ export default function Portfolio() {
       </Navbar>
 
       {/* Hero section */ }
-      <section id="home" className="py-5 text-center" style={{ paddingTop: "100px" }}>
+      <section id="home" className="py-5 text-center hero-gradient" style={{ paddingTop: "100px" }} data-aos='fade-in'>
         <Container>
           <h1 className="display-4">Bio</h1>
-          <p className="lead">Bio here</p>
+          <TypeAnimation
+          sequence={["Frontend Developer", 2000, "React Enthusiast", 2000, "UI Explorer", 2000]}
+          wrapper="span"
+          speed={50}
+          repeat={Infinity}
+          />
         </Container>
       </section>
 
       {/* SKills section */}
-      <section id="skills" className="py-5 text-center">
+      <section id="skills" className="py-5 text-center" data-aos="fade-up">
         <Container>
-          <h2 className="mb-4">Technologie, které používám</h2>
+          <h2 className="mb-4">Co používám</h2>
           <Row className="justify-content-center mb-5">
-            <Col xs="auto">
+            <Col xs="auto" data-aos="zoom-in">
               <FaReact size={50} title="React.js" className="text-primary" />
             </Col>
-            <Col xs="auto">
+            <Col xs="auto" data-aos="zoom-in" data-aos-delay="200">
               <FaBootstrap size={50} title="Bootstrap" className="text-primary" />
             </Col>
             <Col xs="auto">
@@ -68,7 +80,7 @@ export default function Portfolio() {
               <FaCss3 size={50} title="CSS" className="text-primary" />
             </Col>
           </Row>
-          <h3 className="mb-4">Technologie, které se učím</h3>
+          <h3 className="mb-4">Co se učím</h3>
           <Row className="justify-content-center">
             <Col xs="auto">
               <FaNodeJs size={45} title="Node.js" className="text-success" />
@@ -84,41 +96,44 @@ export default function Portfolio() {
       </section>
 
       {/* Projects section */}
-      <section id="projects" className="py-5">
+            {/* Projects section */}
+            <section id="projects" className="py-5" data-aos="fade-up">
         <Container>
-          <h2 className="text-center" mb-4>Projekty</h2>
-            <Row className="g-4">
-              <Col md={6}>
-                <Card className="h-100">
-                  <Card.Body>
-                    <Card.Title>Kobudo App</Card.Title>
-                    <Card.Text>Webová stránka pro klub japonských bojových umění v Ústí nad Labem</Card.Text>
-                    <div className="mb-2">
-                      <Badge bg="primary" className="me-1">React</Badge>
-                      <Badge bg="secondary">Bootstrap</Badge>
-                    </div>
-                    <Button variant="outline-primary" href="https://github.com/I3lade02/kobudo-app" target="_blank">
-                      Zobrazit na Githubu
-                    </Button>
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col md={6}>
-                <Card className="h-100">
-                  <Card.Body>
-                    <Card.Title>File Storage</Card.Title>
-                    <Card.Text>Jednoduchá webová aplikace s Node.js a express. Jednoduché řízení download/upload</Card.Text>
-                    <div className="mb-2">
-                      <Badge bg="primary" className="me-1">Node.js</Badge>
-                      <Badge bg="secondary">Express</Badge>
-                    </div>
-                    <Button variant="outline-primary" href="https://github.com/I3lade02/file-storage" target="_blank">
-                      Zobrazit na Githubu
-                    </Button>
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col md={6}>
+          <h2 className="text-center mb-4">Projekty</h2>
+          <Row className="g-4">
+            <Col md={6} data-aos="fade-up">
+              <Card className="h-100">
+                <Card.Body>
+                  <Card.Title>Kobudo App</Card.Title>
+                  <Card.Text>Webová stránka pro klub japonských bojových umění v Ústí nad Labem</Card.Text>
+                  <div className="mb-2">
+                    <Badge bg="primary" className="me-1">React</Badge>
+                    <Badge bg="secondary">Bootstrap</Badge>
+                  </div>
+                  <Button variant="outline-primary" href="https://github.com/I3lade02/kobudo-app" target="_blank">
+                    Zobrazit na Githubu
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col md={6} data-aos="fade-up" data-aos-delay="100">
+              <Card className="h-100">
+                <Card.Body>
+                  <Card.Title>File Storage</Card.Title>
+                  <Card.Text>Jednoduchá webová aplikace s Node.js a Express. Jednoduché řízení download/upload</Card.Text>
+                  <div className="mb-2">
+                    <Badge bg="primary" className="me-1">Node.js</Badge>
+                    <Badge bg="secondary">Express</Badge>
+                  </div>
+                  <Button variant="outline-primary" href="https://github.com/I3lade02/file-storage" target="_blank">
+                    Zobrazit na Githubu
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+
+            <Col md={6} data-aos="fade-up">
               <Card className="h-100">
                 <Card.Body>
                   <Card.Title>Roguelike Dungeon</Card.Title>
@@ -133,7 +148,8 @@ export default function Portfolio() {
                 </Card.Body>
               </Card>
             </Col>
-            <Col md={6}>
+
+            <Col md={6} data-aos="fade-up" data-aos-delay="100">
               <Card className="h-100">
                 <Card.Body>
                   <Card.Title>Base Defense</Card.Title>
@@ -148,12 +164,22 @@ export default function Portfolio() {
                 </Card.Body>
               </Card>
             </Col>
-            </Row>
+          </Row>
+        </Container>
+      </section>
+
+      {/* CV download section */}
+      <section id="cv" className="py-5 text-center" data-aos="zoom-in">
+        <Container>
+          <h2 className="mb-4">Moje CV</h2>
+          <a href="#" download className="btn btn-outline-primary btn-lg">
+            Stáhnout
+          </a>
         </Container>
       </section>
 
       {/* Contact section */}
-      <section id="contacts" className="py-5 text-center">
+      <section id="contact" className="py-5 text-center" data-aos="fade-up">
         <Container>
           <h2 className="mb-4">Kontaktujte mě</h2>
           <div className="d-flex justify-content-center align-items-center gap-4 mb-4">
