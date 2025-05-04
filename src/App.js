@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { TypeAnimation } from "react-type-animation";
+import emailjs from '@emailjs/browser';
 import { Container, Row, Col, Navbar, Nav, Button, Card, Badge, Form } from "react-bootstrap";
 import { FaReact, FaBootstrap, FaGithub, FaLinkedin, FaGitAlt, FaNodeJs, FaHtml5, FaCss3 } from "react-icons/fa";
 import { FaSquareJs } from "react-icons/fa6";
@@ -19,6 +20,31 @@ export default function Portfolio() {
   useEffect(() => {
     AOS.init({ duration: 800, once: true });
   })
+
+  const formRef = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+    const TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+    const AUTO_REPLY_ID = process.env.REACT_APP_EMAILJS_AUTO_REPLY_TEMPLATE_ID;
+    const PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+
+    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY)
+      .then(() => {
+        return emailjs.sendForm(SERVICE_ID, AUTO_REPLY_ID, formRef.current, PUBLIC_KEY);
+      })
+      .then(() => {
+        alert("Zpráva odeslána!");
+        e.target.reset();
+      })
+      .catch((error) => {
+        console.error("Chyba:", error);
+        alert("Něco se pokazilo: " + (error.text || JSON.stringify(error)));
+      });
+  };
+
 
   return (
     <div className={themeClass}>
@@ -191,15 +217,18 @@ export default function Portfolio() {
             </a>
           </div>
           <p className="mb-3"><strong>Nebo mě kontaktujte přímo zde</strong></p>
-          <Form className="mx-auto" style={{ maxWidth: '500px'}}>
+          <Form ref={formRef} onSubmit={sendEmail} className="mx-auto" style={{ maxWidth: '500px'}}>
             <Form.Group controlId="formName" className="mb-3">
-              <Form.Control type="text" placeholder="Vaše jméno" />
+              <Form.Control type="text" placeholder="Vaše jméno" name="name" required />
+            </Form.Group>
+            <Form.Group controlId="formTitle" className="mb-3">
+              <Form.Control type="title" placeholder="Předmět zprávy" name="title" required />
             </Form.Group>
             <Form.Group controlId="formEmail" className="mb-3">
-              <Form.Control type="email" placeholder="Váš E-mail" />
+              <Form.Control type="email" placeholder="Váš E-mail" name="email" required />
             </Form.Group>
             <Form.Group controlId="formMessage" className="mb-3">
-              <Form.Control as="textarea" rows={4} placeholder="Vaše zpráva" />
+              <Form.Control as="textarea" rows={4} placeholder="Vaše zpráva" name="message" required />
             </Form.Group>
             <Button variant="primary" type="submit">Odeslat</Button>
           </Form>
