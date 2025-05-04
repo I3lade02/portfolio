@@ -174,7 +174,7 @@ export default function Portfolio() {
                     desc: "Jednoduchá webová aplikace s Node.js a Express. Řízení download/upload",
                     tech: ["Node.js", "Express"],
                     link: "https://github.com/I3lade02/file-storage",
-                    image: "/images/home_cloud.png"
+                    image: "/images/home_cloud_.png"
                   }, {
                     title: "Roguelike Dungeon",
                     desc: "Python hra s pygame. Průchod náhodně tvořenými dungeony",
