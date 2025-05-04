@@ -117,4 +117,33 @@ footer {
   }
 }
 
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 5px;
+  background-color: #007bff;
+  z-index: 10000;
+  transition: width 0.25s ease-out;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 20%;
+  padding: 12px 16px;
+  font-size: 20px;
+  z-index: 1000;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.back-to-top:hover {
+  opacity: 1;
+}
 

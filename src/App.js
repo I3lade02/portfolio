@@ -14,40 +14,71 @@ export default function Portfolio() {
 
   const [darkMode, setDarkMode] = useState(false);
   const toggleTheme = () => setDarkMode(!darkMode);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [validated, setValidated] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
+  const [showTopBtn, setShowTopBtn] = useState(false);
   const themeClass = darkMode ? "bg-dark text-light" : "bg-light text-dark";
   const textMuted = darkMode ? "text-secondary" : "text-muted";
 
   useEffect(() => {
     AOS.init({ duration: 800, once: true });
+
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = (scrollTop / windowHeight) * 100;
+      setScrollProgress(progress);
+      setShowTopBtn(scrollTop > 300);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const formRef = useRef();
 
   const sendEmail = (e) => {
     e.preventDefault();
-
+    const form = e.currentTarget;
+  
+    if (!form.checkValidity()) {
+      e.stopPropagation();
+      setValidated(true);
+      return;
+    }
+  
+    setValidated(true); // valid case
+  
     const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
     const TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
     const AUTO_REPLY_ID = process.env.REACT_APP_EMAILJS_AUTO_REPLY_TEMPLATE_ID;
     const PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
-
+  
     emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY)
       .then(() => {
         return emailjs.sendForm(SERVICE_ID, AUTO_REPLY_ID, formRef.current, PUBLIC_KEY);
       })
       .then(() => {
-        alert("Zpráva odeslána!");
+        setEmailSent(true);
+        setValidated(false);
         e.target.reset();
+        setTimeout(() => setEmailSent(false), 5000);
       })
       .catch((error) => {
         console.error("Chyba:", error);
         alert("Něco se pokazilo: " + (error.text || JSON.stringify(error)));
       });
   };
-
+  
 
   return (
     <div className={themeClass}>
+      <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
       <div className="animated-bg" />
       {/* Navbar */}
       <Navbar collapseOnSelect expand="lg" bg={darkMode ? "dark" : "light"} variant={darkMode ? "dark" : "light"} fixed="top">
@@ -218,20 +249,41 @@ export default function Portfolio() {
             </a>
           </div>
           <p className="mb-3"><strong>Nebo mě kontaktujte přímo zde</strong></p>
-          <Form ref={formRef} onSubmit={sendEmail} className="mx-auto" style={{ maxWidth: '500px'}}>
+          <Form
+            ref={formRef}
+            onSubmit={sendEmail}
+            className="mx-auto"
+            style={{ maxWidth: '500px' }}
+            noValidate
+            validated={validated}
+          >
             <Form.Group controlId="formName" className="mb-3">
-              <Form.Control type="text" placeholder="Vaše jméno" name="name" required />
+              <Form.Control required type="text" placeholder="Vaše jméno" name="name" />
+              <Form.Control.Feedback type="invalid">Zadejte své jméno.</Form.Control.Feedback>
             </Form.Group>
+
             <Form.Group controlId="formTitle" className="mb-3">
-              <Form.Control type="title" placeholder="Předmět zprávy" name="title" required />
+              <Form.Control required type="text" placeholder="Předmět zprávy" name="title" />
+              <Form.Control.Feedback type="invalid">Zadejte předmět zprávy.</Form.Control.Feedback>
             </Form.Group>
+
             <Form.Group controlId="formEmail" className="mb-3">
-              <Form.Control type="email" placeholder="Váš E-mail" name="email" required />
+              <Form.Control required type="email" placeholder="Váš E-mail" name="email" />
+              <Form.Control.Feedback type="invalid">Zadejte platný e-mail.</Form.Control.Feedback>
             </Form.Group>
+
             <Form.Group controlId="formMessage" className="mb-3">
-              <Form.Control as="textarea" rows={4} placeholder="Vaše zpráva" name="message" required />
+              <Form.Control required as="textarea" rows={4} placeholder="Vaše zpráva" name="message" />
+              <Form.Control.Feedback type="invalid">Napište zprávu.</Form.Control.Feedback>
             </Form.Group>
+
             <Button variant="primary" type="submit">Odeslat</Button>
+
+            {emailSent && (
+              <div className="mt-3 text-success fw-bold">
+                ✅ Zpráva byla úspěšně odeslána!
+              </div>
+            )}
           </Form>
         </Container>
       </section>
@@ -239,6 +291,10 @@ export default function Portfolio() {
       <footer className={`text-center py-3 ${textMuted}`}>
         @ {new Date().getFullYear()} Ondřej Beránek
       </footer>
+
+      {showTopBtn && (
+        <button className="back-to-top" onClick={scrollToTop}>↑</button>
+      )}
     </div>
   );
 }
