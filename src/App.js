@@ -6,7 +6,7 @@ import 'aos/dist/aos.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { TypeAnimation } from "react-type-animation";
 import emailjs from '@emailjs/browser';
-import { Container, Row, Col, Navbar, Nav, Button, Card, Badge, Form } from "react-bootstrap";
+import { Container, Row, Col, Navbar, Nav, Button, Badge, Form } from "react-bootstrap";
 import { FaReact, FaBootstrap, FaGithub, FaLinkedin, FaGitAlt, FaNodeJs, FaHtml5, FaCss3 } from "react-icons/fa";
 import { FaSquareJs } from "react-icons/fa6";
 import { SiMongodb, SiExpress } from "react-icons/si";
