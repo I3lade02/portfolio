@@ -2,7 +2,6 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: inherit;
   overflow-x: inherit;
 }
 
@@ -11,6 +10,8 @@ body > div {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 0 or 1;
 }
 
 section {
@@ -80,6 +81,39 @@ footer {
     box-shadow:
       0 0 10px rgba(255, 255, 255, 0.3),
       0 0 18px rgba(138, 180, 255, 0.5);
+  }
+}
+
+.animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image: radial-gradient(currentColor 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.1;
+  animation: backgroundScroll 60s linear infinite;
+}
+
+.bg-light .animated-bg {
+  color: #000;  /* dark gray dots for light mode */
+  opacity: 0.2;
+}
+
+.bg-dark .animated-bg {
+  color: #ddd;  /* light gray dots for dark mode */
+  opacity: 0.2;
+}
+
+@keyframes backgroundScroll {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 1000px 1000px;
   }
 }
 

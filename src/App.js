@@ -19,7 +19,7 @@ export default function Portfolio() {
 
   useEffect(() => {
     AOS.init({ duration: 800, once: true });
-  })
+  }, []);
 
   const formRef = useRef();
 
@@ -48,12 +48,13 @@ export default function Portfolio() {
 
   return (
     <div className={themeClass}>
+      <div className="animated-bg" />
       {/* Navbar */}
-      <Navbar collapseOnSelect expand="lg" bg={darkMode ? "dark": "light"} variant={darkMode ? "dark" : "light"} fixed="top">
+      <Navbar collapseOnSelect expand="lg" bg={darkMode ? "dark" : "light"} variant={darkMode ? "dark" : "light"} fixed="top">
         <Container>
           <Navbar.Brand href="#home">Ondřej Beránek</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="respnsive-navbar-nav" className="justify-content-center gap-4">
+          <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-center gap-4">
             <Nav className="ms-auto me-3">
               <Nav.Link href="#home">Domů</Nav.Link>
               <Nav.Link href="#skills">Dovednosti</Nav.Link>
@@ -70,7 +71,7 @@ export default function Portfolio() {
       </Navbar>
 
       {/* Hero section */ }
-      <section id="home" className="py-5 text-center hero-gradient" style={{ paddingTop: "100px" }} data-aos='fade-in'>
+      <section id="home" className="py-5 text-center" style={{ paddingTop: "100px" }} data-aos='fade-in'>
         <Container>
           <h1 className="display-4">Bio</h1>
           <TypeAnimation
@@ -198,7 +199,7 @@ export default function Portfolio() {
       <section id="cv" className="py-5 text-center" data-aos="zoom-in">
         <Container>
           <h2 className="mb-4">Moje CV</h2>
-          <a href="#" download className="btn btn-outline-primary btn-lg">
+          <a href="/beranek_cv.pdf" download className="btn btn-outline-primary btn-lg">
             Stáhnout
           </a>
         </Container>
