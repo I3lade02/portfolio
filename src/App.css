@@ -147,3 +147,50 @@ footer {
   opacity: 1;
 }
 
+.project-card {
+  perspective: 1000px;
+  height: 100%; /* Ensures child elements respect layout */
+}
+
+.project-inner {
+  position: relative;
+  width: 100%;
+  height: 280px; /* Fixed height to prevent overlap */
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
+}
+
+.project-card:hover .project-inner {
+  transform: rotateY(180deg);
+}
+
+.project-front,
+.project-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  backface-visibility: hidden;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.project-front {
+  background-color: var(--bs-card-bg, #fff);
+  z-index: 2;
+}
+
+.project-front img {
+  max-height: 120px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.project-back {
+  background-color: var(--bs-light);
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
