@@ -14,8 +14,17 @@ import "./App.css";
 
 export default function Portfolio() {
 
-  const [darkMode, setDarkMode] = useState(false);
-  const toggleTheme = () => setDarkMode(!darkMode);
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem("darkMode");
+    return saved === "true";
+  });
+  const toggleTheme = () => {
+    setDarkMode((prev) => {
+      const next = !prev;
+      localStorage.setItem("darkMode", next);
+      return next;
+    });
+  };
   const [scrollProgress, setScrollProgress] = useState(0);
   const [validated, setValidated] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
@@ -180,13 +189,13 @@ export default function Portfolio() {
                     desc: "Python hra s pygame. Průchod náhodně tvořenými dungeony",
                     tech: ["Python", "CLI"],
                     link: "https://github.com/I3lade02/roguelike_dung",
-                    image: "#"
+                    image: "/images/dung.png"
                   }, {
                     title: "Base Defense",
                     desc: "RTS hra s jednoduchým GUI (nedokončeno)",
                     tech: ["Python", "Game Logic"],
                     link: "https://github.com/I3lade02/base_def",
-                    image: "#"
+                    image: "/images/base_def.png"
                   }].map((project, index) => (
                     <Col md={6} key={index}>
                       <div className="project-card">
