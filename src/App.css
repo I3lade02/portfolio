@@ -194,3 +194,38 @@ footer {
   justify-content: center;
   align-items: center;
 }
+
+.visitor-counter {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 123, 255, 0.9);
+  color: white;
+  padding: 0.6rem 1rem;
+  font-weight: bold;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  z-index: 1000;
+  font-size: 16px;
+}
+
+.visitor-popup-hover {
+  position: fixed;
+  top: 50%;
+  left: -291px; /* hidden mostly */
+  transform: translateY(-50%);
+  background: rgba(0, 123, 255, 0.95);
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 8px 8px 0;
+  font-weight: bold;
+  font-size: 16px;
+  transition: left 0.4s ease;
+  z-index: 9999;
+  cursor: pointer;
+}
+
+.visitor-popup-hover:hover {
+  left: 0; /* slide in fully */
+}

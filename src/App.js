@@ -29,6 +29,7 @@ export default function Portfolio() {
   const [validated, setValidated] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
   const [showTopBtn, setShowTopBtn] = useState(false);
+  const [visitorCount, setVisitorCount] = useState(false);
   const themeClass = darkMode ? "bg-dark text-light" : "bg-light text-dark";
   const textMuted = darkMode ? "text-secondary" : "text-muted";
 
@@ -45,6 +46,15 @@ export default function Portfolio() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    fetch('https://visitor-logger.onrender.com/log');
+    fetch('https://visitor-logger.onrender.com/logs')
+      .then(res => res.json())
+      .then(data => {
+        setVisitorCount(data.count);
+      });
   }, []);
 
   const scrollToTop = () => {
@@ -292,6 +302,12 @@ export default function Portfolio() {
 
             {showTopBtn && (
               <button className="back-to-top" onClick={scrollToTop}>↑</button>
+            )}
+
+            {visitorCount !== null && (
+              <div className="visitor-popup-hover">
+                {visitorCount} návštěvníků navštívilo tento web 👁️
+              </div>
             )}
           </div>
           } />
