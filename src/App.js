@@ -107,7 +107,7 @@ export default function Portfolio() {
             {/* Navbar */}
             <Navbar collapseOnSelect expand="lg" bg={darkMode ? "dark" : "light"} variant={darkMode ? "dark" : "light"} fixed="top">
               <Container>
-                <Navbar.Brand href="#home">BeryCode's</Navbar.Brand>
+                <Navbar.Brand href="#home">BeryCode</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-center gap-4">
                   <Nav className="ms-auto me-3">
@@ -234,7 +234,7 @@ export default function Portfolio() {
             </section>
 
 
-            {/* CV download section */}
+            {/* CV download section 
             <section id="cv" className="py-5 text-center" data-aos="zoom-in">
               <Container>
                 <h2 className="mb-4">Moje CV</h2>
@@ -243,6 +243,7 @@ export default function Portfolio() {
                 </a>
               </Container>
             </section>
+            */}
 
             {/* Contact section */}
             <section id="contact" className="py-5 text-center" data-aos="fade-up">
