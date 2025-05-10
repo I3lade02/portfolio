@@ -6,7 +6,7 @@ import 'aos/dist/aos.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { TypeAnimation } from "react-type-animation";
 import emailjs from '@emailjs/browser';
-import { Container, Row, Col, Navbar, Nav, Button, Badge, Form } from "react-bootstrap";
+import { Container, Row, Col, Navbar, Nav, Button, Badge, Form, Card } from "react-bootstrap";
 import { FaReact, FaBootstrap, FaGithub, FaLinkedin, FaGitAlt, FaNodeJs, FaHtml5, FaCss3 } from "react-icons/fa";
 import { FaSquareJs } from "react-icons/fa6";
 import { SiMongodb, SiExpress } from "react-icons/si";
@@ -193,7 +193,7 @@ export default function Portfolio() {
                     desc: "Jednoduchá webová aplikace s Node.js a Express. Řízení download/upload",
                     tech: ["Node.js", "Express"],
                     link: "https://github.com/I3lade02/file-storage",
-                    image: "/images/home_cloud_.png"
+                    image: "/images/home_cloud.png"
                   }, {
                     title: "Roguelike Dungeon",
                     desc: "Python hra s pygame. Průchod náhodně tvořenými dungeony",
@@ -208,30 +208,27 @@ export default function Portfolio() {
                     image: "/images/base_def.png"
                   }].map((project, index) => (
                     <Col md={6} key={index}>
-                      <div className="project-card">
-                        <div className="project-inner card">
-                          <div className="project-front card-body">
-                            <h5>{project.title}</h5>
-                            <p>{project.desc}</p>
-                            <img src={project.image} alt={project.title} className="img-fluid mb-2 rounded" />
+                      <Card className="project-fade-card h-100">
+                        <Card.Img variant="top" src={project.image} alt={project.title} />
+                        <Card.Body>
+                          <Card.Title>{project.title}</Card.Title>
+                          <Card.Text>{project.desc}</Card.Text>
+                          <div className="mb-2">
+                            {project.tech.map((tag, idx) => (
+                              <Badge bg="secondary" className="me-1" key={idx}>{tag}</Badge>
+                            ))}
                           </div>
-                          <div className="project-back">
-                            <div className="mb-2">
-                              {project.tech.map((tag, idx) => (
-                                <Badge bg="secondary" className="me-1" key={idx}>{tag}</Badge>
-                              ))}
-                            </div>
-                            <Button variant="outline-primary" href={project.link} target="_blank">
-                              Zobrazit na Githubu
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
+                          <Button variant="outline-primary" href={project.link} target="_blank">
+                            Zobrazit na Githubu
+                          </Button>
+                        </Card.Body>
+                      </Card>
                     </Col>
                   ))}
                 </Row>
               </Container>
             </section>
+
 
 
             {/* CV download section 
