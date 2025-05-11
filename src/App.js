@@ -6,7 +6,7 @@ import 'aos/dist/aos.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { TypeAnimation } from "react-type-animation";
 import emailjs from '@emailjs/browser';
-import { Container, Row, Col, Navbar, Nav, Button, Badge, Form, Card } from "react-bootstrap";
+import { Container, Row, Col, Navbar, Nav, Button, Badge, Form } from "react-bootstrap";
 import { FaReact, FaBootstrap, FaGithub, FaLinkedin, FaGitAlt, FaNodeJs, FaHtml5, FaCss3 } from "react-icons/fa";
 import { FaSquareJs } from "react-icons/fa6";
 import { SiMongodb, SiExpress } from "react-icons/si";
@@ -208,22 +208,26 @@ export default function Portfolio() {
                     image: "/images/base_def.png"
                   }].map((project, index) => (
                     <Col md={6} key={index}>
-                      <Card className="project-fade-card h-100">
-                        <Card.Img variant="top" src={project.image} alt={project.title} />
-                        <Card.Body>
-                          <Card.Title>{project.title}</Card.Title>
-                          <Card.Text>{project.desc}</Card.Text>
-                          <div className="mb-2">
-                            {project.tech.map((tag, idx) => (
-                              <Badge bg="secondary" className="me-1" key={idx}>{tag}</Badge>
-                            ))}
-                          </div>
-                          <Button variant="outline-primary" href={project.link} target="_blank">
-                            Zobrazit na Githubu
-                          </Button>
-                        </Card.Body>
-                      </Card>
-                    </Col>
+                <div className="flip-card">
+                  <div className="flip-card-inner">
+                    <div className="flip-card-front d-flex flex-column align-items-center justify-content-center">
+                      <img src={project.image} alt={project.title} style={{ height: '150px', objectFit: 'cover', width: '100%' }} />
+                      <h5 className="mt-2" style={{ color: '#000'}}>{project.title}</h5>
+                    </div>
+                    <div className="flip-card-back d-flex flex-column justify-content-center align-items-center p-3">
+                      <p className="text-center mb-2">{project.desc}</p>
+                      <div className="mb-2 text-center">
+                        {project.tech.map((tag, idx) => (
+                          <Badge bg="secondary" className="me-1" key={idx}>{tag}</Badge>
+                        ))}
+                      </div>
+                      <Button variant="outline-light" size="sm" href={project.link} target="_blank">
+                        Github
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </Col>
                   ))}
                 </Row>
               </Container>
